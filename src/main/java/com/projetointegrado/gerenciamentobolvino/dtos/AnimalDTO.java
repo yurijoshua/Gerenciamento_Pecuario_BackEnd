@@ -10,14 +10,14 @@ public class AnimalDTO implements Serializable {
     private String brinco;
     private String raca;
     private String dataCriacao;
-    private String dataSaida;
+    private String status;
     
-    public AnimalDTO(Integer id, String brinco, String raca, String dataCriacao, String dataSaida) {
+    public AnimalDTO(Integer id, String brinco, String raca, String dataCriacao, String status) {
 		this.id = id;
 		this.brinco = brinco;
 		this.raca = raca;
 		this.dataCriacao = dataCriacao;
-		this.dataSaida = dataSaida;
+		this.status = status;
 	}
 
 	public AnimalDTO(Animal obj) {
@@ -25,7 +25,7 @@ public class AnimalDTO implements Serializable {
         this.brinco = obj.getBrinco();
         this.raca = obj.getRaca();
         this.dataCriacao = obj.getDataCriacao();
-        this.dataSaida = obj.getDataSaida();
+        this.status = obj.getStatus();
 	}
 
     public Integer getId() {
@@ -60,12 +60,12 @@ public class AnimalDTO implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public String getDataSaida() {
-		return dataSaida;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setDataSaida(String dataSaida) {
-		this.dataSaida = dataSaida;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

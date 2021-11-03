@@ -21,7 +21,7 @@ public class Medicacao implements Serializable {
 	private Integer id;
 	
 	private String periodicidade;
-	private String produtoUtilizado;
+	private String nomeMedicacao;
 	private String loteMedicacao;
 	
 	@OneToMany(mappedBy = "medicacao")
@@ -31,11 +31,11 @@ public class Medicacao implements Serializable {
 		super();
 	}
 
-	public Medicacao(Integer id, String periodicidade, String produtoUtilizado, String loteMedicacao) {
+	public Medicacao(Integer id, String periodicidade, String nomeMedicacao, String loteMedicacao) {
 		super();
 		this.id = id;
 		this.periodicidade = periodicidade;
-		this.produtoUtilizado = produtoUtilizado;
+		this.nomeMedicacao = nomeMedicacao;
 		this.loteMedicacao = loteMedicacao;
 	}
 
@@ -55,12 +55,12 @@ public class Medicacao implements Serializable {
 		this.periodicidade = periodicidade;
 	}
 
-	public String getProdutoUtilizado() {
-		return produtoUtilizado;
+	public String getNomeMedicacao() {
+		return nomeMedicacao;
 	}
 
-	public void setProdutoUtilizado(String produtoUtilizado) {
-		this.produtoUtilizado = produtoUtilizado;
+	public void setNomeMedicacao(String nomeMedicacao) {
+		this.nomeMedicacao = nomeMedicacao;
 	}
 
 	public String getLoteMedicacao() {

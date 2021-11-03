@@ -27,17 +27,13 @@ public class StatusPastoAndLoteResource {
     }
 
     @GetMapping(value = "/findallbypasto")
-    public ResponseEntity<List<StatusPastoAndLoteDTO>> findAllByPasto(@RequestParam(value = "pasto", defaultValue = "0") Integer idPasto){
-        List<StatusPastoAndLote> list = service.findAllByPasto(idPasto);
-        List<StatusPastoAndLoteDTO> listDTO = list.stream().map(obj -> new StatusPastoAndLoteDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+    public List<Object> findAllByPasto(@RequestParam(value = "pasto", defaultValue = "0") Integer idPasto){
+        return service.findAllLotesByPasto(idPasto);
     }
 
     @GetMapping(value = "/findallbylote")
-    public ResponseEntity<List<StatusPastoAndLoteDTO>> findAllByLote(@RequestParam(value = "lote", defaultValue = "0") Integer idLote){
-        List<StatusPastoAndLote> list = service.findAllByLote(idLote);
-        List<StatusPastoAndLoteDTO> listDTO = list.stream().map(obj -> new StatusPastoAndLoteDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+    public List<Object> findAllByLote(@RequestParam(value = "lote", defaultValue = "0") Integer idLote){
+        return service.findAllPastosByLote(idLote);
     }
 
     @PostMapping

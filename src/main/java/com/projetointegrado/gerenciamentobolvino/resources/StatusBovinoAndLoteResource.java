@@ -1,11 +1,7 @@
 package com.projetointegrado.gerenciamentobolvino.resources;
 
-import com.projetointegrado.gerenciamentobolvino.domain.Animal;
-import com.projetointegrado.gerenciamentobolvino.domain.Lote;
 import com.projetointegrado.gerenciamentobolvino.domain.StatusBovinoAndLote;
-import com.projetointegrado.gerenciamentobolvino.dtos.LoteDTO;
 import com.projetointegrado.gerenciamentobolvino.dtos.StatusBovinoAndLoteDTO;
-import com.projetointegrado.gerenciamentobolvino.repositories.LoteRepository;
 import com.projetointegrado.gerenciamentobolvino.services.StatusBovinoAndLoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
@@ -30,14 +24,14 @@ public class StatusBovinoAndLoteResource {
         StatusBovinoAndLote obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
-
+    
     @GetMapping(value = "/findallbyanimal")
-    public List<Lote> findAllByAnimal(@RequestParam(value = "animal", defaultValue = "0") Integer idAnimal){
+    public List<Object> findAllByAnimal(@RequestParam(value = "animal", defaultValue = "0") Integer idAnimal){
         return service.findalllotebovino(idAnimal);
     }
 
     @GetMapping(value = "/findallbylote")
-    public List<Animal> findAllByLote(@RequestParam(value = "lote", defaultValue = "0") Integer idLote){
+    public List<Object> findAllByLote(@RequestParam(value = "lote", defaultValue = "0") Integer idLote){
     	return service.findallbovinoslote(idLote);
     }
 

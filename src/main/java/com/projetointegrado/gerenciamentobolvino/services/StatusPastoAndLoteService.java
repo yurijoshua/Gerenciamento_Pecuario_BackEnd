@@ -30,16 +30,12 @@ public class StatusPastoAndLoteService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto com id " + id + ", não foi encontrado."));
     }
 
-    public List<StatusPastoAndLote> findAllByPasto(Integer idPasto){
-        pastoService.findById(idPasto);
-        List<StatusPastoAndLote> list = repository.findAll();
-        return findAllbyPastoId(list, idPasto);
+    public List<Object> findAllLotesByPasto(Integer idPasto){
+        return repository.findAllLotesByPasto(idPasto);
     }
 
-    public List<StatusPastoAndLote> findAllByLote(Integer idLote){
-        LoteService.findById(idLote);
-        List<StatusPastoAndLote> list = repository.findAll();
-        return findAllbyLoteId(list, idLote);
+    public List<Object> findAllPastosByLote(Integer idLote){
+        return repository.findAllPastosByLote(idLote);
     }
 
     public StatusPastoAndLote create(Integer idPasto, Integer idLote, StatusPastoAndLote obj){
@@ -48,7 +44,27 @@ public class StatusPastoAndLoteService {
         Lote Lote = LoteService.findById(idLote);
         obj.setPasto(pasto);
         obj.setLote(Lote);
-        return repository.save(obj);
+        if(verific(obj.getLote().getId(),obj.getPasto().getId()))
+        {
+        	return repository.save(obj);
+        }
+        else
+        {
+        	throw new com.projetointegrado.gerenciamentobolvino.services.exceptions.DataIntegrityViolationException(
+            "O lote em questão já possui um pasto relacionada a ele!");
+        }
+    }
+    
+    public boolean verific(Integer idLote,Integer idPasto){
+    	List<Object> valid = repository.verific(idLote,idPasto);
+        if(valid.isEmpty())
+        {
+        	return true;
+        }
+        else
+        {
+        	return false;
+        }
     }
 
     public StatusPastoAndLote update(Integer id, StatusPastoAndLoteDTO objDto) {
@@ -68,13 +84,4 @@ public class StatusPastoAndLoteService {
         }
     }
 
-    private List<StatusPastoAndLote> findAllbyPastoId(List<StatusPastoAndLote> list, Integer idPasto){
-        list.removeIf(StatusPastoAndLote -> !StatusPastoAndLote.getPasto().getId().equals(idPasto));
-        return list;
-    }
-
-    private List<StatusPastoAndLote> findAllbyLoteId(List<StatusPastoAndLote> list, Integer idLote){
-        list.removeIf(StatusPastoAndLote -> !StatusPastoAndLote.getLote().getId().equals(idLote));
-        return list;
-    }
 }

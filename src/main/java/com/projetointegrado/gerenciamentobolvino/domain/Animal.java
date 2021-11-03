@@ -24,7 +24,7 @@ public class Animal implements Serializable {
 	private String raca;
 	
 	private String dataCriacao;
-	private String dataSaida;
+	private String status;
 	
 	@OneToMany(mappedBy = "animal")
 	private List<Peso> pesos = new ArrayList<>();
@@ -39,13 +39,13 @@ public class Animal implements Serializable {
 		super();
 	}	
 	
-	public Animal(Integer id, String brinco, String raca, String dataCriacao, String dataSaida) {
+	public Animal(Integer id, String brinco, String raca, String dataCriacao, String status) {
 		super();
 		this.id = id;
 		this.brinco = brinco;
 		this.raca = raca;
 		this.dataCriacao = dataCriacao;
-		this.dataSaida = dataSaida;
+		this.status = status;
 	}
 
 	public Integer getId() {
@@ -80,12 +80,12 @@ public class Animal implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public String getDataSaida() {
-		return dataSaida;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setDataSaida(String dataSaida) {
-		this.dataSaida = dataSaida;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public List<Peso> getPesos() {

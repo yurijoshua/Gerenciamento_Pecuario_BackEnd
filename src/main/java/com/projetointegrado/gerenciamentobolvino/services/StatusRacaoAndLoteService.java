@@ -13,10 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 @Service
 public class StatusRacaoAndLoteService {
 
@@ -29,14 +25,15 @@ public class StatusRacaoAndLoteService {
     @Autowired
     private LoteService LoteService;
     
-    @PersistenceContext
-    private EntityManager entityMananger;
 
-    public List<Lote> findallracoesbovino(Integer idRacao){
-        Query query = entityMananger.createNativeQuery("SELECT l.nome_lote,l.data_criacao FROM gerenciadorpecuario.lote as l inner join gerenciadorpecuario.status_racao_and_lote as sbr ON sbr.tempo_final = '' and sbr.lote_id = l.id and sbr.racao_id  = :idRacao").setParameter("idRacao", idRacao);
-        return query.getResultList();
+    public List<Object> findalllotesracao(Integer idRacao){
+        return repository.findalllotesracao(idRacao);
     }
-
+    
+    public List<Object> findallracoeslote(Integer idLote){
+        return repository.findallracoeslote(idLote);
+    }
+    
     public StatusRacaoAndLote findById(Integer id){
         Optional<StatusRacaoAndLote> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto com id " + id + ", não foi encontrado."));
@@ -61,8 +58,8 @@ public class StatusRacaoAndLoteService {
     }
 
     public boolean verific(Integer idLote,Integer idRacao){
-        Query query = entityMananger.createNativeQuery("SELECT * FROM gerenciadorpecuario.status_racao_and_lote WHERE tempo_final = '' and lote_id = :idLote and racao_id = :idRacao").setParameter("idLote", idLote).setParameter("idRacao", idRacao);
-        if(query.getResultList().isEmpty()) 
+    	List<Object> valid = repository.verific(idLote,idRacao);
+        if(valid.isEmpty())
         {
         	return true;
         }

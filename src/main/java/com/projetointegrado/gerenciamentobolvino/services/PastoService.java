@@ -1,6 +1,5 @@
 package com.projetointegrado.gerenciamentobolvino.services;
 
-import com.projetointegrado.gerenciamentobolvino.domain.Animal;
 import com.projetointegrado.gerenciamentobolvino.domain.Pasto;
 import com.projetointegrado.gerenciamentobolvino.dtos.PastoDTO;
 import com.projetointegrado.gerenciamentobolvino.repositories.PastoRepository;
@@ -9,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,11 @@ public class PastoService {
     }
 
     public Pasto create(Pasto obj){
+        LocalDateTime myDateObj = LocalDateTime.now();  
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+        String formattedDate = myDateObj.format(myFormatObj); 
         obj.setId(null);
+        obj.setDataCriacao(formattedDate);
         return repository.save(obj);
     }
 

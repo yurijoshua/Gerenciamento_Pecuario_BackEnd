@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,15 +28,23 @@ public class VendaService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto com id " + id + ", não foi encontrado."));
     }
 
+    public List<Object> findallLotesAtivos(){
+    	return repository.findallLotesAtivos();
+    }
+    
     public List<Venda> findAll(){
         List<Venda> list = repository.findAll();
         return list;
     }
 
-    public Venda create(Integer idUsuario, Venda obj){
+    public Venda create(Integer idUsuario,Integer idLote, Venda obj){
         obj.setId(null);
         Usuario usuario = usuarioService.findById(idUsuario);
         obj.setUsuario(usuario);
+        LocalDateTime myDateObj = LocalDateTime.now();  
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+        String formattedDate = myDateObj.format(myFormatObj); 
+        repository.alterstatusAfterVenda(idLote,formattedDate);
         return repository.save(obj);
     }
 

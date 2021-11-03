@@ -28,13 +28,13 @@ public class StatusRacaoAndLoteResource {
     }
 
     @GetMapping(value = "/findallbyracao")
-    public List<Lote> findAllByRacao(@RequestParam(value = "racao", defaultValue = "0") Integer idRacao){
-        return service.findallracoesbovino(idRacao);
+    public Object findAllByRacao(@RequestParam(value = "racao", defaultValue = "0") Integer idRacao){
+        return service.findalllotesracao(idRacao);
     }
 
     @GetMapping(value = "/findallbylote")
-    public List<Lote> findAllByLote(@RequestParam(value = "lote", defaultValue = "0") Integer idLote){
-        return service.findallracoesbovino(idLote);
+    public List<Object> findAllByLote(@RequestParam(value = "lote", defaultValue = "0") Integer idLote){
+        return service.findallracoeslote(idLote);
     }
 
     @PostMapping

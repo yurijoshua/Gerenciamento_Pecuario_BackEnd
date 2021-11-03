@@ -26,6 +26,11 @@ public class VendaResource {
         return ResponseEntity.ok().body(obj);
     }
 
+    @GetMapping(value = "/findallLotesAtivos")
+    public List<Object> findallLotesAtivos(){
+        return service.findallLotesAtivos();
+    }
+    
     @GetMapping
     public ResponseEntity<List<VendaDTO>> findAll(@RequestParam(value = "usuario", defaultValue = "0") Integer idUsuario){
         List<Venda> list = service.findAll();
@@ -34,8 +39,9 @@ public class VendaResource {
     }
 
     @PostMapping
-    public ResponseEntity<Venda> create(@RequestParam(value = "usuario", defaultValue = "0") Integer idUsuario, @RequestBody Venda obj){
-        obj = service.create(idUsuario, obj);
+    public ResponseEntity<Venda> create(@RequestParam(value = "usuario", defaultValue = "0")  Integer idUsuario,
+    									@RequestParam(value = "lote", defaultValue = "0") Integer idLote, @RequestBody Venda obj){
+        obj = service.create(idUsuario,idLote, obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/venda/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }

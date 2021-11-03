@@ -1,6 +1,5 @@
 package com.projetointegrado.gerenciamentobolvino.services;
 
-import com.projetointegrado.gerenciamentobolvino.domain.Animal;
 import com.projetointegrado.gerenciamentobolvino.domain.Medicacao;
 import com.projetointegrado.gerenciamentobolvino.dtos.MedicacaoDTO;
 import com.projetointegrado.gerenciamentobolvino.repositories.MedicacaoRepository;
@@ -34,7 +33,7 @@ public class MedicacaoService {
     public Medicacao update(Integer id, MedicacaoDTO objDto) {
         Medicacao obj = findById(id);
         obj.setPeriodicidade(objDto.getPeriodicidade());
-        obj.setProdutoUtilizado(objDto.getProdutoUtilizado());
+        obj.setNomeMedicacao(objDto.getNomeMedicacao());
         obj.setLoteMedicacao(objDto.getLoteMedicacao());
         return repository.save(obj);
     }

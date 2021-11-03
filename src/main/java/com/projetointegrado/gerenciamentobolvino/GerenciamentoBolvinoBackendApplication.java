@@ -68,7 +68,7 @@ public class GerenciamentoBolvinoBackendApplication implements CommandLineRunner
 	@Override
 	public void run(String... args) throws Exception {
 
-        Animal ani1 = new Animal(null,"02PG","Nelore","12/12/2102","20/21/2120");
+        Animal ani1 = new Animal(null,"02PG","Nelore","12/12/2102","Vendido");
         Medicacao medic1 = new Medicacao(null, "12 meses", "Vitamina", "L01");
         Lote lot1 = new Lote(null, "15/10/2021", "Lote Brasileiro");
         Pasto past1 = new Pasto(null, "15/10/2021", "Pasto Brasileiro");

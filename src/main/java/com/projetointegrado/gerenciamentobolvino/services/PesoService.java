@@ -1,20 +1,18 @@
 package com.projetointegrado.gerenciamentobolvino.services;
 
+import java.util.List;
+import java.util.Optional;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+
 import com.projetointegrado.gerenciamentobolvino.domain.Animal;
 import com.projetointegrado.gerenciamentobolvino.domain.Peso;
 import com.projetointegrado.gerenciamentobolvino.dtos.PesoDTO;
 import com.projetointegrado.gerenciamentobolvino.repositories.PesoRepository;
 import com.projetointegrado.gerenciamentobolvino.services.exceptions.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 @Service
 public class PesoService {
@@ -24,18 +22,14 @@ public class PesoService {
 
     @Autowired
     private AnimalService animalService;
-
-    @PersistenceContext
-    private EntityManager entityMananger;
     
     public Peso findById(Integer id){
         Optional<Peso> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto com id " + id + ", não foi encontrado."));
     }
 
-    public List<Peso> findAllbyAnimal(Integer idAnimal){
-        Query query = entityMananger.createNativeQuery("SELECT * FROM peso where animal_id = :idAnimal order by data_pesagem").setParameter("idAnimal", idAnimal);
-        return query.getResultList();
+    public List<Object> findAllbyAnimal(Integer idAnimal){
+        return repository.findAllbyAnimal(idAnimal);
     }
 
     public Peso create(Integer idAnimal, Peso obj){
@@ -69,8 +63,8 @@ public class PesoService {
     }
     
     public boolean verific(String dataPesagem, Integer idAnimal){
-        Query query = entityMananger.createNativeQuery("SELECT * FROM peso where data_pesagem = :dataPesagem and animal_id = :idAnimal").setParameter("dataPesagem", dataPesagem).setParameter("idAnimal", idAnimal);
-        if(query.getResultList().isEmpty()) 
+        List<Object> valid = repository.verific(dataPesagem,idAnimal);
+        if(valid.isEmpty()) 
         {
         	return true;
         }
@@ -79,7 +73,6 @@ public class PesoService {
         	return false;
         }
     }
-    
 
     public void delete(Integer id) {
         findById(id);

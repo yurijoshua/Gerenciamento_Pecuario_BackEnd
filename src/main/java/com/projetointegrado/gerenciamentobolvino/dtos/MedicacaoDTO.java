@@ -8,20 +8,20 @@ public class MedicacaoDTO implements Serializable {
 
     private Integer id;
     private String periodicidade;
-    private String produtoUtilizado;
+    private String nomeMedicacao;
     private String loteMedicacao;
 
-    public MedicacaoDTO(Integer id, String periodicidade, String produtoUtilizado, String loteMedicacao) {
+    public MedicacaoDTO(Integer id, String periodicidade, String nomeMedicacao, String loteMedicacao) {
         this.id = id;
         this.periodicidade = periodicidade;
-        this.produtoUtilizado = produtoUtilizado;
+        this.nomeMedicacao = nomeMedicacao;
         this.loteMedicacao = loteMedicacao;
     }
 
     public MedicacaoDTO(Medicacao obj) {
         this.id = obj.getId();
         this.periodicidade = obj.getPeriodicidade();
-        this.produtoUtilizado = obj.getProdutoUtilizado();
+        this.nomeMedicacao = obj.getNomeMedicacao();
         this.loteMedicacao = obj.getLoteMedicacao();
     }
 
@@ -41,12 +41,12 @@ public class MedicacaoDTO implements Serializable {
         this.periodicidade = periodicidade;
     }
 
-    public String getProdutoUtilizado() {
-        return produtoUtilizado;
+    public String getNomeMedicacao() {
+        return nomeMedicacao;
     }
 
-    public void setProdutoUtilizado(String produtoUtilizado) {
-        this.produtoUtilizado = produtoUtilizado;
+    public void setNomeMedicacao(String nomeMedicacao) {
+        this.nomeMedicacao = nomeMedicacao;
     }
 
     public String getLoteMedicacao() {

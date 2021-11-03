@@ -1,6 +1,5 @@
 package com.projetointegrado.gerenciamentobolvino.services;
 
-import com.projetointegrado.gerenciamentobolvino.domain.Animal;
 import com.projetointegrado.gerenciamentobolvino.domain.Usuario;
 import com.projetointegrado.gerenciamentobolvino.dtos.UsuarioDTO;
 import com.projetointegrado.gerenciamentobolvino.repositories.UsuarioRepository;
@@ -9,21 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository repository;
-
-    @PersistenceContext
-    private EntityManager entityMananger;
     
     public Usuario findById(Integer id){
         Optional<Usuario> obj = repository.findById(id);
@@ -35,7 +29,11 @@ public class UsuarioService {
     }
 
     public Usuario create(Usuario obj){
+        LocalDateTime myDateObj = LocalDateTime.now();  
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+        String formattedDate = myDateObj.format(myFormatObj); 
         obj.setId(null);
+        obj.setDataCriacao(formattedDate);
         if(verific(obj.getUsuario()))
         {
             return repository.save(obj);
@@ -48,8 +46,8 @@ public class UsuarioService {
     }
     
     public boolean verific(String usuario){
-        Query query = entityMananger.createNativeQuery("SELECT * FROM usuario where usuario = :usuario").setParameter("usuario", usuario);
-        if(query.getResultList().isEmpty()) 
+        List<Object> valid = repository.verific(usuario);
+        if(valid.isEmpty()) 
         {
         	return true;
         }

@@ -2,7 +2,6 @@ package com.projetointegrado.gerenciamentobolvino.services;
 
 import com.projetointegrado.gerenciamentobolvino.domain.Animal;
 import com.projetointegrado.gerenciamentobolvino.domain.HistoricoMedicacao;
-import com.projetointegrado.gerenciamentobolvino.domain.Lote;
 import com.projetointegrado.gerenciamentobolvino.domain.Medicacao;
 import com.projetointegrado.gerenciamentobolvino.dtos.HistoricoMedicacaoDTO;
 import com.projetointegrado.gerenciamentobolvino.repositories.HistoricoMedicacaoRepository;
@@ -14,9 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 @Service
 public class HistoricoMedicacaoService {
@@ -29,24 +25,18 @@ public class HistoricoMedicacaoService {
 
     @Autowired
     private MedicacaoService medicacaoService;
-
-    @PersistenceContext
-    private EntityManager entityMananger;
     
     public HistoricoMedicacao findById(Integer id){
         Optional<HistoricoMedicacao> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto com id " + id + ", não foi encontrado."));
     }
 
-    public List<HistoricoMedicacao> findallmedicbovino(Integer idAnimal){
-    	Query query = entityMananger.createNativeQuery("SELECT hm.id,m.produto_utilizado,hm.dosagem,hm.data_aplicacao FROM gerenciadorpecuario.medicacao as m inner join gerenciadorpecuario.historico_medicacao as hm ON hm.medicacao_id = m.id and hm.animal_id=:idAnimal").setParameter("idAnimal", idAnimal);
-        return query.getResultList();
+    public List<Object> findallmedicbovino(Integer idAnimal){
+        return repository.findallmedicbovino(idAnimal);
     }
         
-    public List<HistoricoMedicacao> findAllByMedicacao(Integer idMedicacao){
-        medicacaoService.findById(idMedicacao);
-        List<HistoricoMedicacao> list = repository.findAll();
-        return findAllbyMedicacaoId(list, idMedicacao);
+    public List<Object> findallbovinosmedic(Integer idMedicacao){
+        return repository.findallbovinosmedic(idMedicacao);
     }
 
     public HistoricoMedicacao create(Integer idAnimal, Integer idMedicacao, HistoricoMedicacao obj){
@@ -75,13 +65,4 @@ public class HistoricoMedicacaoService {
         }
     }
 
-    private List<HistoricoMedicacao> findAllbyAnimalId(List<HistoricoMedicacao> list, Integer idAnimal){
-        list.removeIf(historicomedicacao -> !historicomedicacao.getAnimal().getId().equals(idAnimal));
-        return list;
-    }
-
-    private List<HistoricoMedicacao> findAllbyMedicacaoId(List<HistoricoMedicacao> list, Integer idMedicacao){
-        list.removeIf(historicomedicacao -> !historicomedicacao.getMedicacao().getId().equals(idMedicacao));
-        return list;
-    }
 }

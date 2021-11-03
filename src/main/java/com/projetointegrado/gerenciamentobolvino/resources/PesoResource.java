@@ -27,7 +27,7 @@ public class PesoResource {
     }
 
     @GetMapping
-    public List<Peso> findAll(@RequestParam(value = "animal", defaultValue = "0") Integer idAnimal){
+    public List<Object> findAll(@RequestParam(value = "animal", defaultValue = "0") Integer idAnimal){
     	return service.findAllbyAnimal(idAnimal);
     }
 

@@ -27,15 +27,13 @@ public class HistoricoMedicacaoResource {
     }
 
     @GetMapping(value = "/findallbyanimal")
-    public List<HistoricoMedicacao> findAllByAnimal(@RequestParam(value = "animal", defaultValue = "0") Integer idAnimal){
+    public List<Object> findAllByAnimal(@RequestParam(value = "animal", defaultValue = "0") Integer idAnimal){
     	return service.findallmedicbovino(idAnimal);
     }
     
     @GetMapping(value = "/findallbymedicacao")
-    public ResponseEntity<List<HistoricoMedicacaoDTO>> findAllByMedicacao(@RequestParam(value = "medicacao", defaultValue = "0") Integer idMedicacao){
-        List<HistoricoMedicacao> list = service.findAllByMedicacao(idMedicacao);
-        List<HistoricoMedicacaoDTO> listDTO = list.stream().map(obj -> new HistoricoMedicacaoDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+    public List<Object> findAllByMedicacao(@RequestParam(value = "medicacao", defaultValue = "0") Integer idMedicacao){
+    	return service.findallbovinosmedic(idMedicacao);
     }
 
     @PostMapping
