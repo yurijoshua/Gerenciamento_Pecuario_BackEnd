@@ -53,7 +53,7 @@ public class StatusBovinoAndLoteService {
         else
         {
         	throw new com.projetointegrado.gerenciamentobolvino.services.exceptions.DataIntegrityViolationException(
-            "O animal não pode ser relacionado ao lote pois já se encontra ativo em outro!");
+            "O animal em questão já possui um lote relacionada a ele!");
         }
     }
     

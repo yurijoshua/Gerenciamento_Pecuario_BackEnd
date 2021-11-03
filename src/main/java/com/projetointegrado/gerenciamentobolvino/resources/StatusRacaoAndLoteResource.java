@@ -1,6 +1,5 @@
 package com.projetointegrado.gerenciamentobolvino.resources;
 
-import com.projetointegrado.gerenciamentobolvino.domain.Lote;
 import com.projetointegrado.gerenciamentobolvino.domain.StatusRacaoAndLote;
 import com.projetointegrado.gerenciamentobolvino.dtos.StatusRacaoAndLoteDTO;
 import com.projetointegrado.gerenciamentobolvino.services.StatusRacaoAndLoteService;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
