@@ -41,10 +41,9 @@ public class VendaService {
         obj.setId(null);
         Usuario usuario = usuarioService.findById(idUsuario);
         obj.setUsuario(usuario);
-        LocalDateTime myDateObj = LocalDateTime.now();  
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-        String formattedDate = myDateObj.format(myFormatObj); 
-        repository.alterstatusAfterVenda(idLote,formattedDate);
+        
+        repository.alterstatusAfterVenda(idLote,obj.getDataVenda());
+       
         return repository.save(obj);
     }
 

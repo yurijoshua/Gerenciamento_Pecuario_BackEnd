@@ -46,7 +46,7 @@ public class AnimalService {
         obj.setRaca(objDto.getRaca());
         obj.setDataCriacao(objDto.getDataCriacao());
         obj.setStatus(objDto.getStatus());
-       	return repository.save(obj);
+        return repository.save(obj);
     }
     
     public boolean verific(String brinco){
