@@ -14,4 +14,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	@Query(value = "SELECT * FROM usuario where usuario = ?1", nativeQuery = true)
 	List<Object> verific(String usuario);
 	
+	@Query(value = "SELECT * FROM usuario where usuario = ?1 && senha = ?2", nativeQuery = true)
+	List<Object> authlogin(String usuario,String senha);
 }

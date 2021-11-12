@@ -39,6 +39,11 @@ public class UsuarioResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
+    
+    @PostMapping(value = "/auth/login")
+    public List<Object> login(@RequestBody Usuario obj){
+        return service.login(obj);
+    }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<UsuarioDTO> update(@PathVariable Integer id, @RequestBody UsuarioDTO objDto){

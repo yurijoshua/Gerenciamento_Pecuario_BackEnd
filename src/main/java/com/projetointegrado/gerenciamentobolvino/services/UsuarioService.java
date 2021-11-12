@@ -74,14 +74,18 @@ public class UsuarioService {
         }
     }
   
-    
+    public List<Object> login(Usuario obj) {    	
+    	List<Object> user = repository.authlogin(obj.getUsuario(),obj.getSenha()); 
+    	return user;
+    }
+        
     public void delete(Integer id) {
         findById(id);
         try {
             repository.deleteById(id);
         }catch (DataIntegrityViolationException e){
             throw new com.projetointegrado.gerenciamentobolvino.services.exceptions.DataIntegrityViolationException(
-                    "Objeto não pode ser deletado. Possui dependencias");
+            "Objeto não pode ser deletado. Possui dependencias");
         }
     }
 }

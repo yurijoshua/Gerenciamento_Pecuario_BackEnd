@@ -18,6 +18,6 @@ public interface StatusBovinoAndLoteRepository extends JpaRepository<StatusBovin
 	List<Object> findalllotebovino(Integer idAnimal);
 
 	@Query(value = "SELECT * FROM status_bovino_and_lote as sbl where tempo_final = ?1 and sbl.animal_id = ?2", nativeQuery = true)
-	List<Object> verific(String tempoInicial,Integer tempoFinal );
+	List<Object> verific(String tempoFinal,Integer idAnimal );
 
 }

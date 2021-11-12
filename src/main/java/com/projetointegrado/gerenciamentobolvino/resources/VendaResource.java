@@ -40,8 +40,9 @@ public class VendaResource {
 
     @PostMapping
     public ResponseEntity<Venda> create(@RequestParam(value = "usuario", defaultValue = "0")  Integer idUsuario,
-    									@RequestParam(value = "lote", defaultValue = "0") Integer idLote, @RequestBody Venda obj){
-        obj = service.create(idUsuario,idLote, obj);
+    									@RequestParam(value = "lote", defaultValue = "0") Integer idLote,
+    									@RequestParam(value = "peso", defaultValue = "0") Float peso, @RequestBody Venda obj){
+        obj = service.create(idUsuario,idLote, peso, obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/venda/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }

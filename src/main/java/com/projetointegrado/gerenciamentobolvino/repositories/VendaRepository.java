@@ -19,6 +19,6 @@ public interface VendaRepository extends JpaRepository<Venda, Integer>{
 	@Modifying
 	@Transactional
 	@Query(value = "UPDATE animal as a INNER JOIN status_bovino_and_lote AS sbl ON a.id = sbl.animal_id SET sbl.tempo_final = ?2, a.status = 'Vendido' WHERE a.status = 'Vivo' and sbl.tempo_final = '' and a.id = sbl.animal_id and sbl.lote_id = ?1", nativeQuery = true) 
-	void alterstatusAfterVenda(Integer idLote, String date);
+	void alterstatusAfterVenda(Integer idLote, String dataVenda);
 	
 }

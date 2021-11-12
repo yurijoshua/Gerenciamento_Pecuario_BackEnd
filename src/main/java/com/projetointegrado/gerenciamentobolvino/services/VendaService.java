@@ -7,7 +7,7 @@ import com.projetointegrado.gerenciamentobolvino.repositories.VendaRepository;
 import com.projetointegrado.gerenciamentobolvino.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,8 +37,10 @@ public class VendaService {
         return list;
     }
 
-    public Venda create(Integer idUsuario,Integer idLote, Venda obj){
+    public Venda create(Integer idUsuario,Integer idLote, Float peso, Venda obj){
         obj.setId(null);
+        float valorlote = obj.getValorArroba()*peso;
+        obj.setValorLote(valorlote);
         Usuario usuario = usuarioService.findById(idUsuario);
         obj.setUsuario(usuario);
         
