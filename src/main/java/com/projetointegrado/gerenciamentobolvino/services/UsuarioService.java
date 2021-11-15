@@ -29,11 +29,14 @@ public class UsuarioService {
     }
 
     public Usuario create(Usuario obj){
+    	
         LocalDateTime myDateObj = LocalDateTime.now();  
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-        String formattedDate = myDateObj.format(myFormatObj); 
+        String formattedDate = myDateObj.format(myFormatObj);
+        
         obj.setId(null);
         obj.setDataCriacao(formattedDate);
+        
         if(verific(obj.getUsuario()))
         {
             return repository.save(obj);

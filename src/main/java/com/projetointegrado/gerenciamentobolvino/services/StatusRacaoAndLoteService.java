@@ -46,27 +46,7 @@ public class StatusRacaoAndLoteService {
         Lote Lote = LoteService.findById(idLote);
         obj.setRacao(racao);
         obj.setLote(Lote);
-        if(verific(obj.getLote().getId(),obj.getRacao().getId()))
-        {
-        	return repository.save(obj);
-        }
-        else
-        {
-        	throw new com.projetointegrado.gerenciamentobolvino.services.exceptions.DataIntegrityViolationException(
-            "O lote em questão já possui uma ração relacionada a ele!");
-        }
-    }
-
-    public boolean verific(Integer idLote,Integer idRacao){
-    	List<Object> valid = repository.verific(idLote,idRacao);
-        if(valid.isEmpty())
-        {
-        	return true;
-        }
-        else
-        {
-        	return false;
-        }
+       	return repository.save(obj);
     }
 
     public StatusRacaoAndLote update(Integer id, StatusRacaoAndLoteDTO objDto) {

@@ -40,11 +40,12 @@ public class StatusPastoAndLoteService {
 
     public StatusPastoAndLote create(Integer idPasto, Integer idLote, StatusPastoAndLote obj){
         obj.setId(null);
+        obj.setTempoFinal("");
         Pasto pasto = pastoService.findById(idPasto);
         Lote Lote = LoteService.findById(idLote);
         obj.setPasto(pasto);
         obj.setLote(Lote);
-        if(verific(obj.getLote().getId(),obj.getPasto().getId()))
+        if(verific(obj.getLote().getId()))
         {
         	return repository.save(obj);
         }
@@ -55,8 +56,8 @@ public class StatusPastoAndLoteService {
         }
     }
     
-    public boolean verific(Integer idLote,Integer idPasto){
-    	List<Object> valid = repository.verific(idLote,idPasto);
+    public boolean verific(Integer idLote){
+    	List<Object> valid = repository.verific(idLote);
         if(valid.isEmpty())
         {
         	return true;
